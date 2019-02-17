@@ -87,15 +87,18 @@ open class TweeActiveTextField: TweeBorderedTextField {
 	}
 
 	@objc private func textFieldDidEndEditing() {
-		let animation = CABasicAnimation(path: #keyPath(CAShapeLayer.strokeEnd), fromValue: nil, toValue: 0.0, duration: animationDuration)
-		activeLine.layer.add(animation, forKey: "ActiveLineEndAnimation")
+        if self.text?.count == 0 {
+            let animation = CABasicAnimation(path: #keyPath(CAShapeLayer.strokeEnd), fromValue: nil, toValue: 0.0, duration: animationDuration)
+            activeLine.layer.add(animation, forKey: "ActiveLineEndAnimation")
+        }
 	}
 
 	@objc private func textFieldDidBeginEditing() {
 		calculateLine(activeLine)
-
-		let animation = CABasicAnimation(path: #keyPath(CAShapeLayer.strokeEnd), fromValue: 0.0, toValue: 1.0, duration: animationDuration)
-		activeLine.layer.add(animation, forKey: "ActiveLineStartAnimation")
+        if self.text?.count == 0 {
+            let animation = CABasicAnimation(path: #keyPath(CAShapeLayer.strokeEnd), fromValue: 0.0, toValue: 1.0, duration: animationDuration)
+            activeLine.layer.add(animation, forKey: "ActiveLineStartAnimation")
+        }
 	}
 }
 
